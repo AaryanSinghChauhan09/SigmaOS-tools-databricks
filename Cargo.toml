@@ -1,0 +1,8 @@
+[package]
+name = "SigmaOS-tools-databricks"
+version = "0.1.0"
+edition = "2021"
+description = "Databricks interactive notebook cell execution environment"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
