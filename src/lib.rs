@@ -1,3 +1,4 @@
+#![allow(non_snake_case)]
 //! Databricks Notebook Cell Executor for SigmaOS
 use std::collections::HashMap;
 
