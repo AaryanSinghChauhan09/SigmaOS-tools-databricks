@@ -3,7 +3,7 @@ name = "SigmaOS-tools-databricks"
 tier = 2
 stability = "scaffold"
 language = "rust"
-description = "tools-databricks component"
+description = "SigmaOS Tools Databricks - Interactive notebook cell execution environment"
 upstream = []
 
 [contract]
