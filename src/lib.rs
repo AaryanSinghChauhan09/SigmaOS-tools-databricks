@@ -1,3 +1,4 @@
+#![forbid(unsafe_code)]
 #![allow(non_snake_case)]
 //! Databricks Notebook Cell Executor for SigmaOS
 use std::collections::HashMap;
@@ -119,5 +120,42 @@ mod tests {
         assert_eq!(executor.get_var("cluster_nodes").unwrap(), "8");
         assert!(sql_res.success);
         assert!(sql_res.output.contains("executed query"));
+    }
+}
+
+#[cfg(test)]
+mod databricks_extra_tests {
+    use super::*;
+
+    #[test]
+    fn test_databricks_unknown_variable_returns_none_aaa() {
+        // Arrange
+        let executor = DatabricksExecutor::new();
+        // Act & Assert
+        assert!(executor.get_var("non_existent").is_none());
+    }
+
+    #[test]
+    fn test_databricks_markdown_cell_rendering_aaa() {
+        // Arrange
+        let mut executor = DatabricksExecutor::new();
+        let cell = NotebookCell {
+            id: 10,
+            kind: CellKind::Markdown,
+            source: "# Title".into(),
+        };
+        // Act
+        let res = executor.execute_cell(&cell);
+        // Assert
+        assert!(res.success);
+        assert!(res.output.contains("# Title"));
+    }
+
+    #[test]
+    fn test_databricks_default_executor_aaa() {
+        // Arrange & Act
+        let executor = DatabricksExecutor::default();
+        // Assert
+        assert!(executor.get_var("x").is_none());
     }
 }
